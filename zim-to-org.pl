@@ -196,11 +196,31 @@ sub out_node {
     #
     # Convert checkbixes to orgmode format
     #
-    ~s/\[\*\]/\[X\]/g;
+    s/\[\*\]/\[X\]/g;
     #
     # Convert any starting '*' to '-' to save orgmode tree
     #
-    ~s/^\*/-/g;
+    s/^\*/-/g;
+    #
+    # Convert bold markers to orgmode format
+    #
+    s/^-\*([^\*]+)\*\*/\*$1\*/g;
+    s/\*\*([^\*]+)\*\*/\*$1\*/g;
+    #
+    # Convert italic markers to orgmode format
+    #
+    s/\/\/([^\/]+)\/\//\/$1\//g;
+    #
+    # Convert underlined markers to orgmode format
+    #
+    s/__([^\_]+)__/_$1_/g;
+    #
+    # Convert strike-through markers to orgmode format
+    #
+    s/~~([^\~]+)~~/\+$1\+/g;
+    #
+    # Convert verbatim markers to orgmode format
+    s/''([^\']+)''/=$1=/g;
     #
     # Convert zim headers to orgmode subtrees
     #
